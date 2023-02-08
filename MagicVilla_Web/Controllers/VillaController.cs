@@ -6,6 +6,7 @@
     using Newtonsoft.Json;
     using Services.IServices;
     using Microsoft.AspNetCore.Mvc;
+    using System.Collections.Generic;
 
     public class VillaController : Controller
     {
@@ -17,6 +18,7 @@
             _mapper = mapper;
             _villaService = villaService;
         }
+
         public async Task<IActionResult> IndexVilla()
         {
             List<VillaDTO> list = new();
@@ -29,6 +31,28 @@
             }
 
             return View(list);
+        }
+
+        public async Task<IActionResult> CreateVilla()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateVilla(VillaCreateDTO modelDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _villaService.CreateAsync<APIResponse>(modelDto);
+
+                if (response != null && response.IsSuccess)
+                {
+                    return RedirectToAction(nameof(IndexVilla));
+                }
+            }
+
+            return View(modelDto);
         }
     }
 }

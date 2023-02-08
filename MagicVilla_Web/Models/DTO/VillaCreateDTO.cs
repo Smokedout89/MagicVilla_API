@@ -12,6 +12,7 @@
         public double Rate { get; set; }
         public int Sqft { get; set; }
         public int Occupancy { get; set; }
+        [Required]
         public string ImageUrl { get; set; }
         public string Amenity { get; set; }
     }
