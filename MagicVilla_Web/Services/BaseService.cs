@@ -12,7 +12,7 @@ public class BaseService : IBaseService
     public IHttpClientFactory httpClient { get; set; }
     public BaseService(IHttpClientFactory httpClient)
     {
-        this.responseModel = new ();
+        this.responseModel = new APIResponse();
         this.httpClient = httpClient;
     }
     public async Task<T> SendAsync<T>(APIRequest apiRequest)
@@ -57,7 +57,7 @@ public class BaseService : IBaseService
             HttpResponseMessage apiResponse = null;
 
             apiResponse = await client.SendAsync(message);
-
+            // DEBUG HERE IF THERE IS ERROR WITH THE API
             var apiContent = await apiResponse.Content.ReadAsStringAsync();
 
             var APIResponse = JsonConvert.DeserializeObject<T>(apiContent);

@@ -1,7 +1,7 @@
 ﻿namespace MagicVilla_Web.Controllers
 {
+    using Models;
     using System.Diagnostics;
-    using MagicVilla_Web.Models;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : Controller
