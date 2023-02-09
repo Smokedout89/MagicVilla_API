@@ -1,15 +1,11 @@
 ﻿namespace MagicVilla_VillaAPI.Controllers
 {
-    using Data;
     using Models;
     using Models.DTO;
     using System.Net;
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.AspNetCore.JsonPatch;
     using Repository.IRepository;
-    using Microsoft.AspNetCore.Http.HttpResults;
 
     //[Route("api/[controller]")]
     [Route("api/VillaNumberAPI")]
@@ -35,7 +31,7 @@
         {
             try
             {
-                IEnumerable<VillaNumber> villaNumberList = await _dbVillaNumber.GetAllAsync();
+                IEnumerable<VillaNumber> villaNumberList = await _dbVillaNumber.GetAllAsync(includeProperties:"Villa");
                 _response.Result = _mapper.Map<List<VillaNumberDTO>>(villaNumberList);
                 _response.StatusCode = HttpStatusCode.OK;
 
