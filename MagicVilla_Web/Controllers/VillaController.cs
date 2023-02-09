@@ -54,5 +54,62 @@
 
             return View(modelDto);
         }
+
+        public async Task<IActionResult> UpdateVilla(int villaId)
+        {
+            var response = await _villaService.GetAsync<APIResponse>(villaId);
+
+            if (response != null && response.IsSuccess)
+            {
+                VillaDTO dto = JsonConvert.DeserializeObject<VillaDTO>(Convert.ToString(response.Result));
+                return View(_mapper.Map<VillaUpdateDTO>(dto));
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateVilla(VillaUpdateDTO updateDto)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _villaService.UpdateAsync<APIResponse>(updateDto);
+
+                if (response != null && response.IsSuccess)
+                {
+                    return RedirectToAction(nameof(IndexVilla));
+                }
+            }
+
+            return View(updateDto);
+        }
+
+        public async Task<IActionResult> DeleteVilla(int villaId)
+        {
+            var response = await _villaService.GetAsync<APIResponse>(villaId);
+
+            if (response != null && response.IsSuccess)
+            {
+                VillaDTO dto = JsonConvert.DeserializeObject<VillaDTO>(Convert.ToString(response.Result));
+                return View(dto);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteVilla(VillaDTO deleteDto)
+        {
+            var response = await _villaService.DeleteAsync<APIResponse>(deleteDto.Id);
+
+            if (response != null && response.IsSuccess)
+            {
+                return RedirectToAction(nameof(IndexVilla));
+            }
+
+            return View(deleteDto);
+        }
     }
 }
