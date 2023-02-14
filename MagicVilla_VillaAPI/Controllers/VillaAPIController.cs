@@ -1,12 +1,10 @@
 ﻿namespace MagicVilla_VillaAPI.Controllers
 {
-    using Data;
     using Models;
     using Models.DTO;
     using System.Net;
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.JsonPatch;
     using Repository.IRepository;
 
