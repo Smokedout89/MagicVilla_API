@@ -48,10 +48,12 @@
 
                 if (response != null && response.IsSuccess)
                 {
+                    TempData["success"] = "Villa created successfully";
                     return RedirectToAction(nameof(IndexVilla));
                 }
             }
 
+            TempData["error"] = "Error encountered.";
             return View(modelDto);
         }
 
@@ -74,6 +76,7 @@
         {
             if (ModelState.IsValid)
             {
+                TempData["success"] = "Villa updated successfully";
                 var response = await _villaService.UpdateAsync<APIResponse>(updateDto);
 
                 if (response != null && response.IsSuccess)
@@ -82,6 +85,7 @@
                 }
             }
 
+            TempData["error"] = "Error encountered.";
             return View(updateDto);
         }
 
@@ -106,9 +110,11 @@
 
             if (response != null && response.IsSuccess)
             {
+                TempData["success"] = "Villa deleted successfully";
                 return RedirectToAction(nameof(IndexVilla));
             }
 
+            TempData["error"] = "Error encountered.";
             return View(deleteDto);
         }
     }
