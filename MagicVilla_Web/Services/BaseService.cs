@@ -1,5 +1,6 @@
 ﻿namespace MagicVilla_Web.Services;
 
+using System.Net;
 using Models;
 using IServices;
 using System.Text;
@@ -59,6 +60,27 @@ public class BaseService : IBaseService
             apiResponse = await client.SendAsync(message);
             // DEBUG HERE IF THERE IS ERROR WITH THE API
             var apiContent = await apiResponse.Content.ReadAsStringAsync();
+
+            try
+            {
+                APIResponse ApiResponse = JsonConvert.DeserializeObject<APIResponse>(apiContent);
+
+                if (apiResponse.StatusCode is HttpStatusCode.BadRequest or HttpStatusCode.NotFound)
+                {
+                    ApiResponse.StatusCode = HttpStatusCode.BadRequest;
+                    ApiResponse.IsSuccess = false;
+
+                    var res = JsonConvert.SerializeObject(ApiResponse);
+
+                    var returnObj = JsonConvert.DeserializeObject<T>(res);
+                    return returnObj;
+                }
+            }
+            catch (Exception e)
+            {
+                var exceptionResponse = JsonConvert.DeserializeObject<T>(apiContent);
+                return exceptionResponse;
+            }
 
             var APIResponse = JsonConvert.DeserializeObject<T>(apiContent);
             return APIResponse;

@@ -92,13 +92,13 @@
             {
                 if (await _dbVillaNumber.GetAsync(v => v.VillaNo == createDTO.VillaNo) != null)
                 {
-                    ModelState.AddModelError("CustomError", "Villa number already exist!");
+                    ModelState.AddModelError("ErrorMessages", "Villa number already exist!");
                     return BadRequest(ModelState);
                 }
 
                 if (await _dbVilla.GetAsync(v => v.Id == createDTO.VillaId) == null)
                 {
-                    ModelState.AddModelError("CustomError", "Villa ID is invalid!");
+                    ModelState.AddModelError("ErrorMessages", "Villa ID is invalid!");
                     return BadRequest(ModelState);
                 }
 
@@ -175,7 +175,7 @@
 
                 if (await _dbVilla.GetAsync(v => v.Id == updateDTO.VillaId) == null)
                 {
-                    ModelState.AddModelError("CustomError", "Villa ID is invalid!");
+                    ModelState.AddModelError("ErrorMessages", "Villa ID is invalid!");
                     return BadRequest(ModelState);
                 }
 
