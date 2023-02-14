@@ -15,8 +15,4 @@
     <ProjectReference Include="..\MagicVilla_VillaAPI\MagicVilla_VillaAPI.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\VM\" />
-  </ItemGroup>
-
 </Project>
