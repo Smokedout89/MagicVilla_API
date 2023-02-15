@@ -22,7 +22,7 @@
             _dbVillaNumber = dbVillaNumber;
             _mapper = mapper;
             _dbVilla = dbVilla;
-            this._response = new();
+            _response = new();
         }
 
         [HttpGet]
