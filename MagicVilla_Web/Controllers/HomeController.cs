@@ -5,6 +5,7 @@
     using Models.DTO;
     using Newtonsoft.Json;
     using Services.IServices;
+    using MagicVilla_Utility;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : Controller
@@ -22,7 +23,8 @@
         {
             List<VillaDTO> list = new();
 
-            var response = await _villaService.GetAllAsync<APIResponse>();
+            var response = await _villaService.GetAllAsync<APIResponse>
+                (HttpContext.Session.GetString(SD.SessionToken));
 
             if (response != null && response.IsSuccess)
             {

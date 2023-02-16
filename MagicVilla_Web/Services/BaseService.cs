@@ -3,6 +3,7 @@
 using Models;
 using IServices;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
 using MagicVilla_Utility;
@@ -56,6 +57,12 @@ public class BaseService : IBaseService
             };
 
             HttpResponseMessage apiResponse = null;
+
+            if (!string.IsNullOrEmpty(apiRequest.Token))
+            {
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", apiRequest.Token);
+            }
 
             apiResponse = await client.SendAsync(message);
             // DEBUG HERE IF THERE IS ERROR WITH THE API
