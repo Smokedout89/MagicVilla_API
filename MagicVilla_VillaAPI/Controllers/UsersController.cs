@@ -6,8 +6,9 @@
     using Repository.IRepository;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("api/UsersAuth")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/UsersAuth")]
     public class UsersController : Controller
     {
         private readonly IUserRepository _userRepository;

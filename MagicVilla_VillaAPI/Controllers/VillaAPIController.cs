@@ -10,8 +10,9 @@
     using Microsoft.AspNetCore.Authorization;
 
     //[Route("api/[controller]")]
-    [Route("api/VillaAPI")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/VillaAPI")]
     public class VillaAPIController : ControllerBase
     {
         protected APIResponse _response;

@@ -7,11 +7,12 @@
     using Repository.IRepository;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using System.Data;
 
     //[Route("api/[controller]")]
-    [Route("api/VillaNumberAPI")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
+    [Route("api/v{version:apiVersion}/VillaNumberAPI")]
     public class VillaNumberAPIController : ControllerBase
     {
         protected APIResponse _response;
