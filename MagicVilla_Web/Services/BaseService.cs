@@ -14,8 +14,8 @@ public class BaseService : IBaseService
     public IHttpClientFactory httpClient { get; set; }
     public BaseService(IHttpClientFactory httpClient)
     {
-        this.responseModel = new APIResponse();
-        this.httpClient = httpClient;
+        responseModel = new APIResponse();
+        httpClient = httpClient;
     }
     public async Task<T> SendAsync<T>(APIRequest apiRequest)
     {
@@ -72,7 +72,8 @@ public class BaseService : IBaseService
             {
                 APIResponse ApiResponse = JsonConvert.DeserializeObject<APIResponse>(apiContent);
 
-                if (apiResponse.StatusCode is HttpStatusCode.BadRequest or HttpStatusCode.NotFound)
+                if (ApiResponse != null && 
+                    (apiResponse.StatusCode is HttpStatusCode.BadRequest or HttpStatusCode.NotFound))
                 {
                     ApiResponse.StatusCode = HttpStatusCode.BadRequest;
                     ApiResponse.IsSuccess = false;

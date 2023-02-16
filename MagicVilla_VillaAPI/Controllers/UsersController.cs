@@ -7,7 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [ApiVersion("1.0")]
+    [ApiVersionNeutral]
     [Route("api/v{version:apiVersion}/UsersAuth")]
     public class UsersController : Controller
     {

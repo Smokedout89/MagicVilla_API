@@ -1,4 +1,4 @@
-﻿namespace MagicVilla_VillaAPI.Controllers
+﻿namespace MagicVilla_VillaAPI.Controllers.APIv1
 {
     using Models;
     using Models.DTO;
