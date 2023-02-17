@@ -1,5 +1,6 @@
 using MagicVilla_Web;
 using MagicVilla_Web.Services;
+using Microsoft.AspNetCore.Mvc.Routing;
 using MagicVilla_Web.Services.IServices;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -37,6 +38,10 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+builder.Services.AddRouting(options =>
+{
+    options.ConstraintMap.Add("apiVersion", typeof(ApiVersionRouteConstraint));
+});
 
 var app = builder.Build();
 

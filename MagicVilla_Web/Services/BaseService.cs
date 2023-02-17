@@ -3,10 +3,10 @@
 using Models;
 using IServices;
 using System.Net;
-using System.Net.Http.Headers;
 using System.Text;
 using Newtonsoft.Json;
 using MagicVilla_Utility;
+using System.Net.Http.Headers;
 
 public class BaseService : IBaseService
 {
@@ -15,7 +15,7 @@ public class BaseService : IBaseService
     public BaseService(IHttpClientFactory httpClient)
     {
         responseModel = new APIResponse();
-        httpClient = httpClient;
+        this.httpClient = httpClient;
     }
     public async Task<T> SendAsync<T>(APIRequest apiRequest)
     {
