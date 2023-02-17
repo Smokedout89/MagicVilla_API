@@ -1,12 +1,13 @@
 ﻿namespace MagicVilla_Web.Controllers
 {
-    using System.Security.Claims;
     using Models;
     using Models.DTO;
     using Newtonsoft.Json;
     using Services.IServices;
     using MagicVilla_Utility; 
+    using System.Security.Claims;
     using Microsoft.AspNetCore.Mvc;
+    using System.IdentityModel.Tokens.Jwt;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -37,9 +38,14 @@
                 LoginResponseDTO model =
                     JsonConvert.DeserializeObject<LoginResponseDTO>(Convert.ToString(response.Result));
 
+                var handler = new JwtSecurityTokenHandler();
+                var jwt = handler.ReadJwtToken(model.Token);
+
                 var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-                identity.AddClaim(new Claim(ClaimTypes.Name, model.User.UserName));
-                identity.AddClaim(new Claim(ClaimTypes.Role, model.User.Role));
+                identity.AddClaim(new Claim
+                    (ClaimTypes.Name, model.User.UserName));
+                identity.AddClaim(new Claim
+                    (ClaimTypes.Role, jwt.Claims.FirstOrDefault(u => u.Type == "role").Value));
 
                 var principal = new ClaimsPrincipal(identity);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
